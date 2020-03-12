@@ -4,7 +4,7 @@
 namespace Lobster\Events\Providers;
 
 
-use Lobster\Events\ListenerProviderInterface;
+use Lobster\Events\ListenerProvider;
 use Lobster\Events\SubscriberInterface;
 
 
