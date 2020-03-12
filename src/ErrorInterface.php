@@ -1,10 +1,12 @@
 <?php
 
+
 namespace Lobster\Events;
+
 
 /**
  * Interface ErrorInterface
- * @package Halcyon\EventDispatcher
+ * @package Lobster\Events
  */
 interface ErrorInterface extends \Throwable {
 

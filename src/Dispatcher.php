@@ -21,13 +21,13 @@ class Dispatcher implements EventDispatcher {
     private $factory;
 
     /**
-     * @var Provider[]
+     * @var ListenerProvider[]
      */
     private $providers = [];
 
     /**
      * Dispatcher constructor.
-     * @param ListenerProviderInterface[] $providers
+     * @param ListenerProvider[] $providers
      * @param ErrorFactoryInterface|null $factory
      */
     public function __construct(iterable $providers = [], Factory $factory = null) {
@@ -147,7 +147,7 @@ class Dispatcher implements EventDispatcher {
      * @param string $name
      * @return ListenerProvider|null
      */
-    public function getProvider(string $name) :? Provider {
+    public function getProvider(string $name) :? ListenerProvider {
         return $this->providers[$name] ?? null ;
     }
 }

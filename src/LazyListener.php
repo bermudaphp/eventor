@@ -3,7 +3,9 @@
 
 namespace Lobster\Events;
 
+
 use Psr\Container\ContainerInterface;
+
 
 /**
  * Class LazyListener
@@ -55,16 +57,8 @@ class LazyListener {
 
         $listener = $this->container->get($this->service);
 
-        if (!is_object($listener) && !is_callable($listener)) {
-            InvalidListenerException::forNonCallableService($listener);
-        }
-
-        if ($this->method === null && !is_callable($listener)) {
-            InvalidListenerException::forNonCallableInstance($listener);
-        }
-
-        if (!is_callable($listener = [$listener, $this->method])) {
-            InvalidListenerException::forNonCallableInstanceMethod($listener, $this->method);
+        if($this->method !== null){
+            $listener = [$listener, $this->method];
         }
 
         $listener($event);

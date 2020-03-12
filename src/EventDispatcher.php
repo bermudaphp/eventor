@@ -4,7 +4,6 @@
 namespace Lobster\Events;
 
 
-use Lobster\Events\ListenerProvider;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 
