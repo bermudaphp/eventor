@@ -4,13 +4,14 @@
 namespace Lobster\Events\Providers;
 
 
-use Lobster\Events\ListenerProviderInterface;
+use Lobster\Events\ListenerProvider;
+
 
 /**
  * Interface PriorityListenerProviderInterface
- * @package Lobster\Events\providers
+ * @package Lobster\Events\Providers
  */
-interface PrioritizedListenerProviderInterface extends ListenerProviderInterface {
+interface PrioritizedProviderInterface extends ListenerProvider {
 
     /**
      * @param string $eventType
