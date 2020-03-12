@@ -11,7 +11,7 @@ use Lobster\Events\SubscriberInterface;
  * Class PrioritizedProvider
  * @package Lobster\Events\Providers
  */
-class PrioritizedProvider extends ListenerProvider implements PrioritizedProviderInterface {
+class PrioritizedProvider extends Provider implements PrioritizedProviderInterface {
 
     /**
      * @var string
