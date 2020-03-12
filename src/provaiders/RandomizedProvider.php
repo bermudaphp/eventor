@@ -1,13 +1,15 @@
 <?php
 
 
-namespace Lobster\Events\providers;
+namespace Lobster\Events\Providers;
+
 
 /**
- * Class RandomizedListenerProvider
- * @package Lobster\Events\providers
+ * Class RandomizedProvider
+ * @package Lobster\Events\Providers
  */
-class RandomizedListenerProvider extends ListenerProvider {
+class RandomizedProvider extends Provider {
+    
     /**
      * @param object $event
      * @return array
