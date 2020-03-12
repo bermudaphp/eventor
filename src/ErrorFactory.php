@@ -1,12 +1,15 @@
 <?php
 
+
 namespace Lobster\Events;
+
 
 use Throwable;
 
+
 /**
  * Class ErrorFactory
- * @package Halcyon\EventDispatcher
+ * @package Lobster\Events
  */
 class ErrorFactory implements ErrorFactoryInterface {
 
