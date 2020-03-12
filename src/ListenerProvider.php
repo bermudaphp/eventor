@@ -1,14 +1,17 @@
 <?php
 
+
 namespace Lobster\Events;
 
-use Psr\EventDispatcher\ListenerProviderInterface as ProviderInterface;
+
+use Psr\EventDispatcher\ListenerProviderInterface;
+
 
 /**
  * Interface ListenerProviderInterface
- * @package Halcyon\EventDispatcher
+ * @package Lobster\Events
  */
-interface ListenerProviderInterface extends ProviderInterface {
+interface ListenerProvider extends ListenerProviderInterface {
 
     /**
      * @param string $eventType
