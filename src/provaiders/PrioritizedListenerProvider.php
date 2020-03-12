@@ -1,14 +1,17 @@
 <?php
 
+
 namespace Lobster\Events\Providers;
+
 
 use Lobster\Events\SubscriberInterface;
 
+
 /**
- * Class ListenerProvider
- * @package Halcyon\EventDispatcher
+ * Class PrioritizedProvider
+ * @package Lobster\Events\Providers
  */
-class PrioritizedListenerProvider extends ListenerProvider implements PrioritizedListenerProviderInterface {
+class PrioritizedProvider extends ListenerProvider implements PrioritizedProviderInterface {
 
     /**
      * @var string
