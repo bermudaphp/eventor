@@ -12,7 +12,7 @@ use Lobster\Events\SubscriberInterface;
  * Class Provider
  * @package Lobster\Events\Providers
  */
-class Listener implements ListenerProvider {
+class Provider implements ListenerProvider {
 
     /**
      * @var string
