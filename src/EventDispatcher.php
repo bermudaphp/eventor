@@ -10,7 +10,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Interface EventDispatcher
- * @package Lobster\EventDispatcher
+ * @package Lobster\Events
  */
 interface EventDispatcher extends EventDispatcherInterface {
 
