@@ -1,8 +1,11 @@
 <?php
 
+
 namespace Lobster\Events;
 
+
 use Psr\EventDispatcher\StoppableEventInterface;
+
 
 /**
  * Class Event
