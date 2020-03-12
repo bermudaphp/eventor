@@ -5,7 +5,7 @@ namespace Lobster\Events;
 
 
 use Lobster\Events\ErrorFactoryInterface as Factory;
-use Lobster\Events\ListenerProviderInterface as Provider;
+use Lobster\Events\ListenerProvider;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
@@ -63,10 +63,10 @@ class Dispatcher implements EventDispatcher {
     }
 
     /**
-     * @param ListenerProviderInterface $provider
+     * @param ListenerProvider $provider
      * @return EventDispatcher
      */
-    public function attach(Provider $provider) : EventDispatcher {
+    public function attach(ListenerProvider $provider) : EventDispatcher {
 
         $dispatcher = clone $this;
 
@@ -129,7 +129,7 @@ class Dispatcher implements EventDispatcher {
     }
 
     /**
-     * @return ListenerProviderInterface[]
+     * @return ListenerProvider[]
      */
     public function getProviders() : iterable {
         return $this->providers;
@@ -145,7 +145,7 @@ class Dispatcher implements EventDispatcher {
 
     /**
      * @param string $name
-     * @return ListenerProviderInterface|null
+     * @return ListenerProvider|null
      */
     public function getProvider(string $name) :? Provider {
         return $this->providers[$name] ?? null ;
