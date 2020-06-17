@@ -4,8 +4,8 @@
 namespace Lobster\Events;
 
 
-use Lobster\Events\ErrorFactoryInterface as Factory;
 use Lobster\Events\ListenerProvider;
+use Lobster\Events\ErrorFactoryInterface as Factory;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
@@ -13,65 +13,57 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
  * Class Dispatcher
  * @package Lobster\Events
  */
-class Dispatcher implements EventDispatcher {
-
-    /**
-     * @var Factory
-     */
-    private $factory;
-
+class Dispatcher implements EventDispatcher 
+{
+    private Factory $factory;
+    
     /**
      * @var ListenerProvider[]
      */
-    private $providers = [];
+    private array $providers = [];
 
     /**
      * Dispatcher constructor.
      * @param ListenerProvider[] $providers
      * @param ErrorFactoryInterface|null $factory
      */
-    public function __construct(iterable $providers = [], Factory $factory = null) {
-
-        foreach ($providers as $provider){
+    public function __construct(iterable $providers = [], Factory $factory = null) 
+    {
+        foreach ($providers as $provider)
+        {
             $this->attach($provider);
         }
 
-        $this->factory = $factory ?? new class implements ErrorFactoryInterface {
-
+        $this->factory = $factory ?? new class implements ErrorFactoryInterface 
+        {
             /**
              * @param \Throwable $e
              * @param object $event
              * @param callable $listener
              * @return ErrorInterface
              */
-            public function make(\Throwable $e, object $event, callable $listener): ErrorInterface {
+            public function make(\Throwable $e, object $event, callable $listener): ErrorInterface 
+            {
                 return Error::create($e, $event, $listener);
             }
         };
     }
 
-    public function __clone() {
-
-        $providers = $this->getProviders();
-
-        $this->providers = [];
-
-        foreach ($providers as $provider){
-            $this->providers[$provider->getName()] = clone $provider;
+    public function __clone()
+    {
+        foreach ($this->providers as $name => $provider)
+        {
+            $this->providers[$name] = clone $provider;
         }
-
     }
 
     /**
      * @param ListenerProvider $provider
      * @return EventDispatcher
      */
-    public function attach(ListenerProvider $provider) : EventDispatcher {
-
-        $dispatcher = clone $this;
-
-        $dispatcher->providers[$provider->getName()] = $provider;
-
+    public function attach(ListenerProvider $provider) : EventDispatcher 
+    {
+        ($dispatcher = clone $this)->providers[$provider->getName()] = $provider;
         return $dispatcher;
     }
 
@@ -86,25 +78,30 @@ class Dispatcher implements EventDispatcher {
      *
      * @throws ErrorInterface
      */
-    public function dispatch(object $event) : object {
-
-        if($this->providers === [] ||
-            ($stoppable = $event instanceof Stoppable)
-            && $event->isPropagationStopped()
-        ){
+    public function dispatch(object $event) : object 
+    {
+        if($this->providers === [] || ($stoppable = $event instanceof Stoppable)
+           && $event->isPropagationStopped())
+        {
             return $event;
         }
 
-        foreach ($this->providers as $provider){
-            foreach ($provider->getListenersForEvent($event) as $listener){
-
-                try {
+        foreach ($this->providers as $provider)
+        {
+            foreach ($provider->getListenersForEvent($event) as $listener)
+            {
+                try 
+                {
                     $listener($event);
-                } catch (\Throwable $e){
+                } 
+                
+                catch (\Throwable $e)
+                {
                     throw $this->factory->make($e, $event, $listener);
                 }
 
-                if($stoppable && $event->isPropagationStopped()){
+                if($stoppable && $event->isPropagationStopped())
+                {
                     return $event;
                 }
             }
@@ -114,24 +111,20 @@ class Dispatcher implements EventDispatcher {
     }
 
     /**
-     * @param string $provider
+     * @param string $name
      * @return EventDispatcher
      */
-    public function detach(string $provider) : EventDispatcher {
-
-        $dispatcher = clone $this;
-
-        if($dispatcher->has($provider)){
-            unset($this->providers[$provider]);
-        }
-
+    public function detach(string $name) : EventDispatcher
+    {
+        unset(($dispatcher = clone $this)->providers[$name]);
         return $dispatcher;
     }
 
     /**
      * @return ListenerProvider[]
      */
-    public function getProviders() : iterable {
+    public function getProviders(): array 
+    {
         return $this->providers;
     }
 
@@ -139,7 +132,8 @@ class Dispatcher implements EventDispatcher {
      * @param string $provider
      * @return bool
      */
-    public function has(string $provider) : bool {
+    public function has(string $provider): bool 
+    {
         return array_key_exists($provider, $this->providers);
     }
 
@@ -147,7 +141,8 @@ class Dispatcher implements EventDispatcher {
      * @param string $name
      * @return ListenerProvider|null
      */
-    public function getProvider(string $name) :? ListenerProvider {
+    public function getProvider(string $name) :? ListenerProvider 
+    {
         return $this->providers[$name] ?? null ;
     }
 }
