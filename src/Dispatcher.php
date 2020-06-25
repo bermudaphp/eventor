@@ -18,7 +18,7 @@ class Dispatcher implements EventDispatcher
     /**
      * @var ListenerProvider[]
      */
-    private array $providers = [];
+    protected array $providers = [];
 
     public function __construct(iterable $providers = []) 
     {
@@ -28,22 +28,14 @@ class Dispatcher implements EventDispatcher
         }
     }
 
-    public function __clone()
-    {
-        foreach ($this->providers as $name => $provider)
-        {
-            $this->providers[$name] = clone $provider;
-        }
-    }
-
     /**
      * @param ListenerProvider $provider
      * @return EventDispatcher
      */
     public function attach(ListenerProvider $provider) : EventDispatcher 
     {
-        ($dispatcher = clone $this)->providers[$provider->getName()] = $provider;
-        return $dispatcher;
+        $this->providers[$provider->getName()] = $provider;
+        return $this;
     }
 
     /**
@@ -95,8 +87,8 @@ class Dispatcher implements EventDispatcher
      */
     public function detach(string $name) : EventDispatcher
     {
-        unset(($dispatcher = clone $this)->providers[$name]);
-        return $dispatcher;
+        unset($this->providers[$name]);
+        return $this;
     }
 
     /**
