@@ -14,21 +14,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 interface EventDispatcher extends EventDispatcherInterface 
 {
     /**
-     * @param ListenerProvider $provider
-     * @return EventDispatcher
-     */
-    public function attach(ListenerProvider $provider) : EventDispatcher ;
-
-    /**
-     * @param string $provider
-     * @return EventDispatcher
-     */
-    public function detach(string $provider) : EventDispatcher ;
-
-    /**
      * @param object $event
      * @return object
-     * @throws ErrorInterface
+     * @throws EventError
      */
     public function dispatch(object $event) : object ;
 
@@ -37,6 +25,18 @@ interface EventDispatcher extends EventDispatcherInterface
      * @return bool
      */
     public function has(string $provider) : bool ;
+
+    /**
+     * @param string $provider
+     * @return EventDispatcher
+     */
+    public function detach(string $provider) : EventDispatcher ;
+    
+    /**
+     * @param ListenerProvider $provider
+     * @return EventDispatcher
+     */
+    public function attach(ListenerProvider $provider) : EventDispatcher ;
 
     /**
      * @return ListenerProvider[]
