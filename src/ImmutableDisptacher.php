@@ -10,7 +10,7 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
 /**
- * Class Dispatcher
+ * Class ImmutableDispatcher
  * @package Lobster\Events
  */
 class ImmutableDispatcher extends Dispatcher
