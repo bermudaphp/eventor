@@ -19,14 +19,26 @@ abstract class Subscriber implements SubscriberInterface
     {
         $this->container = $container;
     }
-
+    
     /**
-     * @param string $service
-     * @param string|null $method
-     * @return callable
+     * @param ListenerProvider $provider
+     * @return void
      */
-    public function lazy(string $service, string $method = null) : callable
+    public function subscribe(ListenerProvider $provider) : void 
+    {
+        foreach($this->getListeners() as $event => $listener)
+        {
+            $provider->listen($event, $listener);
+        }
+    }
+
+    protected function lazy(string $service, string $method = null) : callable
     {
         return new LazyListener($this->container, $service, $method);
     }
+    
+     /**
+     * @return callable[]
+     */
+    abstract protected function getListeners() : iterable ;
 }
