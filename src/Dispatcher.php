@@ -5,7 +5,6 @@ namespace Lobster\Events;
 
 
 use Lobster\Events\ListenerProvider;
-use Lobster\Events\ErrorFactoryInterface as Factory;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
