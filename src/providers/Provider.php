@@ -45,7 +45,7 @@ class Provider implements ListenerProvider
         {
             if($event instanceof $eventType)
             {
-                $listeners[] = $listener;
+                $listeners += $listener;
             }
         }
 
