@@ -11,8 +11,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  * Interface EventDispatcher
  * @package Lobster\Events
  */
-interface EventDispatcher extends EventDispatcherInterface {
-
+interface EventDispatcher extends EventDispatcherInterface 
+{
     /**
      * @param ListenerProvider $provider
      * @return EventDispatcher
