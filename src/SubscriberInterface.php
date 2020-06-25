@@ -10,8 +10,5 @@ namespace Lobster\Events;
  */
 interface SubscriberInterface
 {
-    /**
-     * @return callable[]
-     */
-    public function getListeners() : iterable;
+    public function subscribe(ListenerProvider $provider) : void;
 }
