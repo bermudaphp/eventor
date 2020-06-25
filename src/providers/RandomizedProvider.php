@@ -8,13 +8,13 @@ namespace Lobster\Events\Providers;
  * Class RandomizedProvider
  * @package Lobster\Events\Providers
  */
-class RandomizedProvider extends Provider {
-    
+class RandomizedProvider extends Provider 
+{
     /**
-     * @param object $event
-     * @return array
+     * @inheritDoc
      */
-    public function getListenersForEvent(object $event): array {
+    public function getListenersForEvent(object $event): array 
+    {
         return shuffle(parent::getListenersForEvent($event));
     }
 }
