@@ -23,5 +23,4 @@ interface ListenerProvider extends ListenerProviderInterface
      * @param callable $listener
      */
     public function listen(string $eventType, callable $listener) : void ;
-   
 }
