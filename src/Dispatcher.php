@@ -15,38 +15,17 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
  */
 class Dispatcher implements EventDispatcher 
 {
-    private Factory $factory;
-    
     /**
      * @var ListenerProvider[]
      */
     private array $providers = [];
 
-    /**
-     * Dispatcher constructor.
-     * @param ListenerProvider[] $providers
-     * @param ErrorFactoryInterface|null $factory
-     */
-    public function __construct(iterable $providers = [], Factory $factory = null) 
+    public function __construct(iterable $providers = []) 
     {
         foreach ($providers as $provider)
         {
             $this->attach($provider);
         }
-
-        $this->factory = $factory ?? new class implements ErrorFactoryInterface 
-        {
-            /**
-             * @param \Throwable $e
-             * @param object $event
-             * @param callable $listener
-             * @return ErrorInterface
-             */
-            public function make(\Throwable $e, object $event, callable $listener): ErrorInterface 
-            {
-                return Error::create($e, $event, $listener);
-            }
-        };
     }
 
     public function __clone()
@@ -76,7 +55,7 @@ class Dispatcher implements EventDispatcher
      * @return object
      *   The Event that was passed, now modified by listeners.
      *
-     * @throws ErrorInterface
+     * @throws EventError
      */
     public function dispatch(object $event) : object 
     {
@@ -97,7 +76,7 @@ class Dispatcher implements EventDispatcher
                 
                 catch (\Throwable $e)
                 {
-                    throw $this->factory->make($e, $event, $listener);
+                    throw new EventError($e, $event, $listener);
                 }
 
                 if($stoppable && $event->isPropagationStopped())
