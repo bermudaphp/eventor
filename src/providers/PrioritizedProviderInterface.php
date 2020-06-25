@@ -11,8 +11,8 @@ use Lobster\Events\ListenerProvider;
  * Interface PriorityListenerProviderInterface
  * @package Lobster\Events\Providers
  */
-interface PrioritizedProviderInterface extends ListenerProvider {
-
+interface PrioritizedProviderInterface extends ListenerProvider
+{
     /**
      * @param string $eventType
      * @param callable $listener
