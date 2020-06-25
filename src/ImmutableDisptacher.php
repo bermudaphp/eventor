@@ -33,7 +33,7 @@ class ImmutableDispatcher extends Dispatcher
         return $dispatcher;
     }
     
-      /**
+    /**
      * @param ListenerProvider $provider
      * @return EventDispatcher
      */
@@ -42,5 +42,4 @@ class ImmutableDispatcher extends Dispatcher
         ($dispatcher = clone $this)->providers[$provider->getName()] = $provider;
         return $dispatcher;
     }
-
 }
