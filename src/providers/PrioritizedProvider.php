@@ -44,7 +44,7 @@ class PrioritizedProvider extends Provider implements PrioritizedProviderInterfa
         {
             if($event instanceof $eventType)
             {
-                $listeners = array_merge($listeners, $v);
+                $listeners += $v;
             }
         }
 
