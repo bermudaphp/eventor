@@ -3,12 +3,13 @@
 
 namespace Lobster\Events;
 
+
 /**
  * Interface SubscriberInterface
  * @package Lobster\Events
  */
-interface SubscriberInterface {
-
+interface SubscriberInterface
+{
     /**
      * @return callable[]
      */
