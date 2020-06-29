@@ -1,20 +1,20 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
-use Lobster\Events\ListenerProvider;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
 /**
  * Class Dispatcher
- * @package Lobster\Events
+ * @package Bermuda\Eventor
  */
 class Dispatcher implements EventDispatcherInterface 
 {
-    protected ListenerProviderInterface $providers;
+    private ListenerProviderInterface $providers;
 
     public function __construct(ListenerProviderInterface $provider) 
     {
@@ -26,30 +26,27 @@ class Dispatcher implements EventDispatcherInterface
      */
     public function dispatch(object $event) : object 
     {
-        if($this->providers === [] || ($stoppable = $event instanceof Stoppable)
+        if(($stoppable = $event instanceof Stoppable)
            && $event->isPropagationStopped())
         {
             return $event;
         }
-
-        foreach ($this->providers as $provider)
+        
+        foreach ($provider->getListenersForEvent($event) as $listener)
         {
-            foreach ($provider->getListenersForEvent($event) as $listener)
+            try 
             {
-                try 
-                {
-                    $listener($event);
-                } 
-                
-                catch (\Throwable $e)
-                {
-                    $this->catchThrowable($e, $event, $listener);
-                }
+                $listener($event);
+            } 
 
-                if($stoppable && $event->isPropagationStopped())
-                {
-                    return $event;
-                }
+            catch (\Throwable $e)
+            {
+                $this->catchThrowable($e, $event, $listener);
+            }
+            
+            if($stoppable && $event->isPropagationStopped())
+            {
+                return $event;
             }
         }
 
