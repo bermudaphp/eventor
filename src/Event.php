@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
 use Psr\EventDispatcher\StoppableEventInterface;
@@ -9,7 +9,7 @@ use Psr\EventDispatcher\StoppableEventInterface;
 
 /**
  * Class Event
- * @package Lobster\Events
+ * @package Bermuda\Eventor
  */
 class Event implements StoppableEventInterface 
 {
