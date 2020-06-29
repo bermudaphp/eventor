@@ -1,37 +1,26 @@
 <?php
 
 
-namespace Lobster\Events\Providers;
+namespace Bermuda\Eventor\Provider;
 
 
-use Lobster\Events\ListenerProvider;
+use Psr\EventDispatcher\ListenerProviderInterface;
 
 
 /**
  * Class Provider
- * @package Lobster\Events\Providers
+ * @package Bermuda\Eventor\Provider
  */
-class Provider implements ListenerProvider
+class Provider implements ListenerProviderInterface
 {
-    protected string $name;
-    private array $listeners = [];
+    protected array $listeners = [];
 
-    public function __construct(string $name, iterable $listeners = [])
+    public function __construct(iterable $listeners = [])
     {
-        $this->name = $name;
-
         foreach ($listeners as $type => $listener)
         {
             $this->listen($type, $listener);
         }
-    }
-    
-    /**
-     * @return string
-     */
-    public function getName(): string 
-    {
-        return $this->name;
     }
 
     /**
