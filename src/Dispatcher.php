@@ -5,6 +5,7 @@ namespace Bermuda\Eventor;
 
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
