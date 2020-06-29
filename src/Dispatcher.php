@@ -12,41 +12,17 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
  * Class Dispatcher
  * @package Lobster\Events
  */
-class Dispatcher implements EventDispatcher 
+class Dispatcher implements EventDispatcherInterface 
 {
-    /**
-     * @var ListenerProvider[]
-     */
-    protected array $providers = [];
+    protected ListenerProviderInterface $providers;
 
-    public function __construct(iterable $providers = []) 
+    public function __construct(ListenerProviderInterface $provider) 
     {
-        foreach ($providers as $provider)
-        {
-            $this->attach($provider);
-        }
+        $this->provider = $provider;
     }
 
     /**
-     * @param ListenerProvider $provider
-     * @return EventDispatcher
-     */
-    public function attach(ListenerProvider $provider) : EventDispatcher 
-    {
-        $this->providers[$provider->getName()] = $provider;
-        return $this;
-    }
-
-    /**
-     * Provide all relevant listeners with an event to process.
-     *
-     * @param object $event
-     *   The object to process.
-     *
-     * @return object
-     *   The Event that was passed, now modified by listeners.
-     *
-     * @throws EventError
+     * @inheritDoc
      */
     public function dispatch(object $event) : object 
     {
@@ -67,7 +43,7 @@ class Dispatcher implements EventDispatcher
                 
                 catch (\Throwable $e)
                 {
-                    throw new EventError($e, $event, $listener);
+                    $this->catchThrowable($e, $event, $listener);
                 }
 
                 if($stoppable && $event->isPropagationStopped())
@@ -79,40 +55,22 @@ class Dispatcher implements EventDispatcher
 
         return $event;
     }
-
+    
     /**
-     * @param string $name
-     * @return EventDispatcher
+     * @param Throwable $e
+     * @param object $event
+     * @param callabale $listener
+     * @throws Throwable
      */
-    public function detach(string $name) : EventDispatcher
+    private function catchThrowable(Throwable $e, object $event, callable $listener) : void
     {
-        unset($this->providers[$name]);
-        return $this;
-    }
-
-    /**
-     * @return ListenerProvider[]
-     */
-    public function getProviders(): array 
-    {
-        return $this->providers;
-    }
-
-    /**
-     * @param string $provider
-     * @return bool
-     */
-    public function has(string $provider): bool 
-    {
-        return array_key_exists($provider, $this->providers);
-    }
-
-    /**
-     * @param string $name
-     * @return ListenerProvider|null
-     */
-    public function getProvider(string $name) :? ListenerProvider 
-    {
-        return $this->providers[$name] ?? null ;
+        if($event instanceof ErrorEvent)
+        {
+            throw $event->getThrowable();
+        }
+        
+        $this->dispatch(new ErrorEvent($e, $event, $listener));
+        
+        throw $e;
     }
 }
