@@ -1,14 +1,17 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
 /**
  * Interface SubscriberInterface
- * @package Lobster\Events
+ * @package Bermuda\Eventor
  */
 interface SubscriberInterface
 {
-    public function subscribe(ListenerProvider $provider) : void;
+    /**
+     * @return callable[]
+     */
+    public function getListeners() : iterable ;
 }
