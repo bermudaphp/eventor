@@ -1,17 +1,17 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
 use Throwable;
 
 
 /**
- * Class EventError
- * @package Lobster\Errors
+ * Class ErrorEvent
+ * @package Bermuda\Eventor
  */
-final class EventError extends \Exception
+final class ErrorEvent extends \RuntimeException
 {    
     /**
      * @var callable
