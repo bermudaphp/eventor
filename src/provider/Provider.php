@@ -14,7 +14,7 @@ use Psr\EventDispatcher\ListenerProviderInterface;
 class Provider implements ListenerProviderInterface
 {
     protected array $listeners = [];
-
+    
     public function __construct(iterable $listeners = [])
     {
         foreach ($listeners as $type => $listener)
@@ -26,7 +26,7 @@ class Provider implements ListenerProviderInterface
     /**
      * @inheritDoc
      */
-    public function getListenersForEvent(object $event) : array 
+    public function getListenersForEvent(object $event): array 
     {
         $listeners = [];
 
@@ -43,18 +43,9 @@ class Provider implements ListenerProviderInterface
 
     /**
      * @param string $eventType
-     * @return bool
-     */
-    public function hasListeners(string $eventType) : bool 
-    {
-        return array_key_exists($eventType, $this->listeners);
-    }
-
-    /**
-     * @param string $eventType
      * @param callable $listener
      */
-    public function listen(string $eventType, callable $listener) : void 
+    public function listen(string $eventType, callable $listener): void 
     {
         if(!in_array($listener, $this->listeners[$eventType] ?? [], true))
         {
