@@ -13,5 +13,5 @@ interface SubscriberInterface
     /**
      * @return callable[]
      */
-    public function getListeners() : iterable ;
+    public function subscribe(ListenerProviderInterface $provider): void ;
 }
