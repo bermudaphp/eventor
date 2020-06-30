@@ -1,26 +1,21 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
-use Psr\EventDispatcher\ListenerProviderInterface;
+use Psr\EventDispatcher\ListenerProviderInterface as BaseProviderInterface;
 
 
 /**
  * Interface ListenerProviderInterface
- * @package Lobster\Events
+ * @package Bermuda\Eventor
  */
-interface ListenerProvider extends ListenerProviderInterface 
+interface ListenerProviderInterface extends BaseProviderInterface 
 {
-    /**
-     * @return string
-     */
-    public function getName() : string ;
-    
     /**
      * @param string $eventType
      * @param callable $listener
      */
-    public function listen(string $eventType, callable $listener) : void ;
+    public function listen(string $eventType, callable $listener): void ;
 }
