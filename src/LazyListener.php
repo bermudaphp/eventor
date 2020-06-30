@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
 use Psr\Container\ContainerInterface;
@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class LazyListener
- * @package Lobster\Events
+ * @package Bermuda\Eventor
  */
 class LazyListener
 {
