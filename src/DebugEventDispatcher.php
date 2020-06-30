@@ -10,10 +10,10 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
 /**
- * Class EventDispatcher
+ * Class DebugEventDispatcher
  * @package Bermuda\Eventor
  */
-class EventDispatcher implements EventDispatcherInterface 
+class DebugEventDispatcher implements EventDispatcherInterface 
 {
     private ListenerProviderInterface $providers;
 
