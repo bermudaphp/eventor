@@ -1,9 +1,9 @@
 {
-    "name": "lobster-php/events",
+    "name": "bermudaphp/eventor",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Lobster\\Events\\": "src/"
+            "Bermuda\\Eventor\\": "src/"
         }
     },
     "require": {
