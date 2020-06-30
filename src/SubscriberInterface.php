@@ -11,7 +11,7 @@ namespace Bermuda\Eventor;
 interface SubscriberInterface
 {
     /**
-     * @return callable[]
+     * @param ListenerProviderInterface $provider
      */
     public function subscribe(ListenerProviderInterface $provider): void ;
 }
