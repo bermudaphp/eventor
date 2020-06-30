@@ -5,7 +5,6 @@ namespace Bermuda\Eventor;
 
 
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
@@ -54,6 +53,9 @@ class DebugEventDispatcher implements EventDispatcherInterface
         return $event;
     }
     
+    /**
+     * @inheritDoc
+     */
     public function getProvider(): ListenerProviderInterface 
     {
         return $this->provider;
