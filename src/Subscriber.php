@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Lobster\Events;
+namespace Bermuda\Eventor;
 
 
 use Psr\Container\ContainerInterface;
@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class Subscriber
- * @package Lobster\Events
+ * @package Bermuda\Eventor
  */
 abstract class Subscriber implements SubscriberInterface 
 {
@@ -24,7 +24,7 @@ abstract class Subscriber implements SubscriberInterface
      * @param ListenerProvider $provider
      * @return void
      */
-    public function subscribe(ListenerProvider $provider) : void 
+    public function subscribe(ListenerProviderInterface $provider): void 
     {
         foreach($this->getListeners() as $event => $listener)
         {
@@ -40,5 +40,5 @@ abstract class Subscriber implements SubscriberInterface
      /**
      * @return callable[]
      */
-    abstract protected function getListeners() : iterable ;
+    abstract protected function getListeners(): iterable ;
 }
