@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Lobster\Events\Providers;
+namespace Bermuda\Eventor\Provider;
 
 
 /**
  * Class RandomizedProvider
- * @package Lobster\Events\Providers
+ * @package Bermuda\Eventor\Provider
  */
 class RandomizedProvider extends Provider 
 {
