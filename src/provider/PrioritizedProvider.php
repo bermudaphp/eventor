@@ -1,37 +1,18 @@
 <?php
 
 
-namespace Lobster\Events\Providers;
+namespace Bermuda\Eventor\Provider;
 
 
-use Lobster\Events\SubscriberInterface;
+use Bermuda\Eventor\SubscriberInterface;
 
 
 /**
  * Class PrioritizedProvider
- * @package Lobster\Events\Providers
+ * @package LBermuda\Eventor\Provider
  */
 class PrioritizedProvider extends Provider implements PrioritizedProviderInterface
 {
-    /**
-     * @param string $eventType
-     * @param callable $listener
-     */
-    public function detach(string $eventType, callable $listener): void 
-    {
-        if(array_key_exists($eventType, $this->listeners))
-        {
-            foreach ($this->listeners[$eventType] as $i => $v)
-            {
-                if($listener === $v['listener'])
-                {
-                    unset($this->listeners[$eventType][$i]);
-                    return;
-                }
-            }
-        }
-    }
-
     /**
      * @param object $event
      * @return array[callable]
