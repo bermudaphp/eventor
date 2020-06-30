@@ -54,6 +54,11 @@ class Dispatcher implements EventDispatcherInterface
         return $event;
     }
     
+    public function getProvider(): ListenerProviderInterface 
+    {
+        return $this->provider;
+    }
+    
     /**
      * @param Throwable $e
      * @param object $event
