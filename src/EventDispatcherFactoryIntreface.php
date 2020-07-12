@@ -10,5 +10,5 @@ namespace Bermuda\Eventor;
  */
 interface EventDispatcherFactoryIntreface
 {
-    public function make(ListenerProviderInterface $provider  = null): EventDispatcherInterface ;
+    public function make(ListenerProviderInterface $provider = null): EventDispatcherInterface ;
 }
