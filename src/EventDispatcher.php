@@ -16,9 +16,9 @@ class EventDispatcher implements EventDispatcherInterface
 {
     private ListenerProviderInterface $providers;
 
-    public function __construct(ListenerProviderInterface $provider) 
+    public function __construct(ListenerProviderInterface $provider = null) 
     {
-        $this->provider = $provider;
+        $this->provider = $provider ?? new Provider\Provider;
     }
 
     /**
