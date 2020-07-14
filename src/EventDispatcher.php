@@ -4,7 +4,7 @@
 namespace Bermuda\Eventor;
 
 
-use Psr\EventDispatcher\EventDispatcherInterface;
+use Bermuda\Eventor\Provider\Provider;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
 
@@ -18,7 +18,7 @@ class EventDispatcher implements EventDispatcherInterface
 
     public function __construct(ListenerProviderInterface $provider = null) 
     {
-        $this->provider = $provider ?? new Provider\Provider;
+        $this->provider = $provider ?? new Provider();
     }
 
     /**
@@ -32,7 +32,7 @@ class EventDispatcher implements EventDispatcherInterface
             return $event;
         }
         
-        foreach ($provider->getListenersForEvent($event) as $listener)
+        foreach ($this->provider->getListenersForEvent($event) as $listener)
         {
             $listener($event);
            
