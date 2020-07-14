@@ -4,7 +4,7 @@
 namespace Bermuda\Eventor\Provider;
 
 
-use Psr\EventDispatcher\ListenerProviderInterface;
+use Bermuda\Eventor\ListenerProviderInterface;
 
 
 /**
