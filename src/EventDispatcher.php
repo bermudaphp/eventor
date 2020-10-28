@@ -26,7 +26,7 @@ class EventDispatcher implements EventDispatcherInterface
      */
     public function dispatch(object $event) : object 
     {
-        if(($stoppable = $event instanceof Stoppable)
+        if (($stoppable = $event instanceof Stoppable)
            && $event->isPropagationStopped())
         {
             return $event;
@@ -36,7 +36,7 @@ class EventDispatcher implements EventDispatcherInterface
         {
             $listener($event);
            
-            if($stoppable && $event->isPropagationStopped())
+            if ($stoppable && $event->isPropagationStopped())
             {
                 return $event;
             }
