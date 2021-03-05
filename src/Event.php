@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Bermuda\Eventor;
 
-
 use Psr\EventDispatcher\StoppableEventInterface;
-
 
 /**
  * Class Event
@@ -18,7 +15,7 @@ class Event implements StoppableEventInterface
     /**
      * @inheritDoc
      */
-    public function stopPropagation() : void 
+    public function stopPropagation(): void 
     {
         $this->stop = true;
     }
@@ -26,7 +23,7 @@ class Event implements StoppableEventInterface
     /**
      * @inheritDoc
      */
-    public function isPropagationStopped() : bool 
+    public function isPropagationStopped(): bool 
     {
         return $this->stop;
     }
