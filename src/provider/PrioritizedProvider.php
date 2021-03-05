@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Bermuda\Eventor\Provider;
 
-
 use Bermuda\Eventor\SubscriberInterface;
-
 
 /**
  * Class PrioritizedProvider
@@ -23,13 +20,13 @@ class PrioritizedProvider extends Provider implements PrioritizedProviderInterfa
 
         foreach ($this->listeners as $eventType => $v)
         {
-            if($event instanceof $eventType)
+            if ($event instanceof $eventType)
             {
                 $listeners += $v;
             }
         }
 
-        if($listeners !== [])
+        if ($listeners !== [])
         {
             usort($listeners, function ($a, $b)
             {
@@ -52,11 +49,11 @@ class PrioritizedProvider extends Provider implements PrioritizedProviderInterfa
      */
     public function listen(string $eventType, callable $listener, int $priority = 0): void 
     {
-        if(array_key_exists($eventType, $this->listeners))
+        if (array_key_exists($eventType, $this->listeners))
         {
             foreach ($this->listeners[$eventType] as $v)
             {
-                if($listener === $v['listener'])
+                if ($listener === $v['listener'])
                 {
                     return;
                 }
