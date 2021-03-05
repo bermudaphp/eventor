@@ -1,17 +1,14 @@
 <?php
 
-
 namespace Bermuda\Eventor;
 
-
-use Psr\EventDispatcher\EventDispatcherInterface as BaseDispatcherInterface;
-
+use Psr\EventDispatcher\EventDispatcherInterface as PsrDispatcherInterface;
 
 /**
  * Interface EventDispatcherInterface
  * @package Bermuda\Eventor
  */
-interface EventDispatcherInterface extends BaseDispatcherInterface 
+interface EventDispatcherInterface extends PsrDispatcherInterface
 {
-    public function getProvider(): ListenerProviderInterface ;
+    public function attach(ListenerProviderInterface $provider): EventDispatcherInterface ;
 }
