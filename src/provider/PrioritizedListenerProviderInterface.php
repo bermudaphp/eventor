@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Bermuda\Eventor\Provider;
 
-
 use Bermuda\Eventor\ListenerProviderInterface;
-
 
 /**
  * Interface PrioritizedListenerProviderInterface
