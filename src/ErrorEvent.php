@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Bermuda\Eventor;
 
-
 use Throwable;
-
 
 /**
  * Class ErrorEvent
@@ -49,7 +46,7 @@ final class ErrorEvent extends \RuntimeException
     /**
      * @return Throwable
      */
-    public function getError() : Throwable 
+    public function getError(): Throwable 
     {
         return $this->getPrevious();
     }
