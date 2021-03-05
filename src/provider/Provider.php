@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Bermuda\Eventor\Provider;
 
-
 use Bermuda\Eventor\ListenerProviderInterface;
-
 
 /**
  * Class Provider
@@ -47,7 +44,7 @@ class Provider implements ListenerProviderInterface
      */
     public function listen(string $eventType, callable $listener): void 
     {
-        if(!in_array($listener, $this->listeners[$eventType] ?? [], true))
+        if (!in_array($listener, $this->listeners[$eventType] ?? [], true))
         {
             $this->listeners[$eventType][] = $listener;
         }
