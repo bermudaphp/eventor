@@ -62,7 +62,7 @@ class EventDispatcher implements EventDispatcherInterface
     public function attach(ListenerProviderInterface $provider): EventDispatcherInterface
     {
         $copy = clone $this;
-        $copy->providers[get_class($provider)] = $provider;
+        $copy->providers[] = $provider;
         
         return $copy;
     }
