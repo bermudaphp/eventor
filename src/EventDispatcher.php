@@ -32,7 +32,7 @@ class EventDispatcher implements EventDispatcherInterface
     /**
      * @inheritDoc
      */
-    public function dispatch(object $event) : object 
+    public function dispatch(object $event): object 
     {
         if (($stoppable = $event instanceof Stoppable)
            && $event->isPropagationStopped())
