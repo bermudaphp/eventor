@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Bermuda\Eventor;
-
 
 use Bermuda\Eventor\Provider\Provider;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
-
 
 /**
  * Class EventDispatcher
@@ -14,11 +11,22 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
  */
 class EventDispatcher implements EventDispatcherInterface 
 {
-    private ListenerProviderInterface $providers;
+    private array $providers = [];
 
-    public function __construct(ListenerProviderInterface $provider = null) 
+    public function __construct(iterable $providers = []) 
     {
-        $this->provider = $provider ?? new Provider();
+        foreach($providers as $provider)
+        {
+            $this->attach($provider);
+        }
+    }
+    
+    public function __clone()
+    {
+        foreach($this->providers as &$provider)
+        {
+            $provider = clone $provider;
+        }
     }
 
     /**
@@ -32,24 +40,30 @@ class EventDispatcher implements EventDispatcherInterface
             return $event;
         }
         
-        foreach ($this->provider->getListenersForEvent($event) as $listener)
+        foreach($this->providers as $provider)
         {
-            $listener($event);
-           
-            if ($stoppable && $event->isPropagationStopped())
+            foreach ($provider->getListenersForEvent($event) as $listener)
             {
-                return $event;
+                $listener($event);
+
+                if ($stoppable && $event->isPropagationStopped())
+                {
+                    return $event;
+                }
             }
         }
-
+        
         return $event;
     }
     
     /**
      * @inheritDoc
      */
-    public function getProvider(): ListenerProviderInterface 
+    public function attach(ListenerProviderInterface $provider): EventDispatcherInterface
     {
-        return $this->provider;
+        $copy = clone $this;
+        $copy->providers[get_class($provider)] = $provider;
+        
+        return $this;
     }
 }
