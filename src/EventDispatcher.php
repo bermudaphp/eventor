@@ -64,6 +64,6 @@ class EventDispatcher implements EventDispatcherInterface
         $copy = clone $this;
         $copy->providers[get_class($provider)] = $provider;
         
-        return $this;
+        return $copy;
     }
 }
