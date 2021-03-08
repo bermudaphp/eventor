@@ -2,13 +2,11 @@
 
 namespace Bermuda\Eventor\Provider;
 
-use Bermuda\Eventor\SubscriberInterface;
-
 /**
  * Class PrioritizedProvider
  * @package LBermuda\Eventor\Provider
  */
-class PrioritizedProvider extends Provider implements PrioritizedProviderInterface
+class PrioritizedProvider extends Provider implements PrioritizedListenerProviderInterface
 {
     /**
      * @param object $event
@@ -28,7 +26,7 @@ class PrioritizedProvider extends Provider implements PrioritizedProviderInterfa
 
         if ($listeners !== [])
         {
-            usort($listeners, function ($a, $b)
+            usort($listeners, static function (array $a, array $b)
             {
                 return $b['priority'] <=> $a['priority'];
             });
