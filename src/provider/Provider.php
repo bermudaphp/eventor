@@ -29,7 +29,7 @@ class Provider implements ListenerProviderInterface
 
         foreach ($this->listeners as $eventType => $listener)
         {
-            if($event instanceof $eventType)
+            if ($event instanceof $eventType)
             {
                 $listeners += $listener;
             }
