@@ -1,17 +1,14 @@
 <?php
 
-
 namespace Bermuda\Eventor;
 
-
-use Psr\EventDispatcher\ListenerProviderInterface as BaseProviderInterface;
-
+use Psr\EventDispatcher\ListenerProviderInterface as PsrProviderInterface;
 
 /**
  * Interface ListenerProviderInterface
  * @package Bermuda\Eventor
  */
-interface ListenerProviderInterface extends BaseProviderInterface 
+interface ListenerProviderInterface extends PsrProviderInterface 
 {
     /**
      * @param string $eventType
