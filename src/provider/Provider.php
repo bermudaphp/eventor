@@ -20,23 +20,6 @@ class Provider implements ListenerProviderInterface
         }
     }
     
-    public function __clone()
-    {
-        $listeners = [];
-        
-        foreach ($this->listeners as $eventType => $listener)
-        {
-            if (is_object($listener))
-            {
-                $listener = clone $listener;
-            }
-            
-            $listeners[$eventType] = $listener;
-        }
-        
-        $this->listeners = $listeners;
-    }
-
     /**
      * @inheritDoc
      */
