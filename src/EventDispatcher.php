@@ -25,6 +25,8 @@ final class EventDispatcher implements EventDispatcherInterface
                     )
                 );
             }
+            
+            $this->providers[] = $provider;
         }
     }
     
@@ -84,6 +86,23 @@ final class EventDispatcher implements EventDispatcherInterface
         }
         
         return $providers;
+    }
+    
+    /**
+     * @param ListenerProviderInterface $provider
+     * @return bool
+     */
+    public function hasProvider(ListenerProviderInterface $provider): bool
+    {
+        foreach($this->providers as $p)
+        {
+            if ($p === $provider)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     /**
