@@ -89,6 +89,7 @@ final class EventDispatcher implements EventDispatcherInterface
      /**
      * @param ListenerProviderInterface[] $providers
      * @return EventDispatcherInterface
+     * @throws \InvalidArgumentException
      */
     public function withProviders(iterable $providers): EventDispatcherInterface
     {
