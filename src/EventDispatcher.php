@@ -9,24 +9,28 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
  * Class EventDispatcher
  * @package Bermuda\Eventor
  */
-class EventDispatcher implements EventDispatcherInterface 
+final class EventDispatcher implements EventDispatcherInterface 
 {
     private array $providers = [];
 
     public function __construct(iterable $providers = []) 
     {
-        foreach($providers as $provider)
+        foreach($providers as $i => $provider)
         {
-            $this->attach($provider);
+            if (!$provider instanceof ListenerProviderInterface)
+            {
+                throw new \InvalidArgumentException(
+                    sprintf('$providers[\'. $i .\'] must be instanceof %s', 
+                        ListenerProviderInterface::class
+                    )
+                );
+            }
         }
     }
     
     public function __clone()
     {
-        foreach($this->providers as &$provider)
-        {
-            $provider = clone $provider;
-        }
+        $this->providers = $this->getProviders();
     }
 
     /**
@@ -65,5 +69,29 @@ class EventDispatcher implements EventDispatcherInterface
         $copy->providers[] = $provider;
         
         return $copy;
+    }
+    
+    /**
+     * @return ListenerProviderInterface[]
+     */
+    public function getProviders(): iterable
+    {
+        $providers = [];
+        
+        foreach($this->providers as $provider)
+        {
+            $providers[] = clone $provider;
+        }
+        
+        return $providers;
+    }
+    
+     /**
+     * @param ListenerProviderInterface[] $providers
+     * @return EventDispatcherInterface
+     */
+    public function withProviders(iterable $providers): EventDispatcherInterface
+    {
+        return new self($providers);
     }
 }
