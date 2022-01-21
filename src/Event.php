@@ -4,10 +4,6 @@ namespace Bermuda\Eventor;
 
 use Psr\EventDispatcher\StoppableEventInterface;
 
-/**
- * Class Event
- * @package Bermuda\Eventor
- */
 class Event implements StoppableEventInterface 
 {
     private bool $stop = false;
