@@ -2,10 +2,6 @@
 
 namespace Bermuda\Eventor\Provider;
 
-/**
- * Class RandomizedProvider
- * @package Bermuda\Eventor\Provider
- */
 class RandomizedProvider extends Provider 
 {
     /**
