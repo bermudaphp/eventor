@@ -4,10 +4,6 @@ namespace Bermuda\Eventor\Provider;
 
 use Bermuda\Eventor\ListenerProviderInterface;
 
-/**
- * Interface PrioritizedListenerProviderInterface
- * @package Bermuda\Eventor\Provider
- */
 interface PrioritizedListenerProviderInterface extends ListenerProviderInterface
 {
     /**
