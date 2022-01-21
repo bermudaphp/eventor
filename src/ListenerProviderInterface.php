@@ -4,10 +4,6 @@ namespace Bermuda\Eventor;
 
 use Psr\EventDispatcher\ListenerProviderInterface as PsrProviderInterface;
 
-/**
- * Interface ListenerProviderInterface
- * @package Bermuda\Eventor
- */
 interface ListenerProviderInterface extends PsrProviderInterface 
 {
     /**
