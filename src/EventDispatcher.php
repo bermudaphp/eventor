@@ -5,20 +5,14 @@ namespace Bermuda\Eventor;
 use Bermuda\Eventor\Provider\Provider;
 use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 
-/**
- * Class EventDispatcher
- * @package Bermuda\Eventor
- */
 final class EventDispatcher implements EventDispatcherInterface 
 {
     private array $providers = [];
 
     public function __construct(iterable $providers = []) 
     {
-        foreach($providers as $i => $provider)
-        {
-            if (!$provider instanceof ListenerProviderInterface)
-            {
+        foreach($providers as $i => $provider) {
+            if (!$provider instanceof ListenerProviderInterface) {
                 throw new \InvalidArgumentException(
                     sprintf('$providers[\'. $i .\'] must be instanceof %s', 
                         ListenerProviderInterface::class
@@ -46,14 +40,11 @@ final class EventDispatcher implements EventDispatcherInterface
             return $event;
         }
         
-        foreach($this->providers as $provider)
-        {
-            foreach ($provider->getListenersForEvent($event) as $listener)
-            {
+        foreach($this->providers as $provider) {
+            foreach ($provider->getListenersForEvent($event) as $listener) {
                 $listener($event);
 
-                if ($stoppable && $event->isPropagationStopped())
-                {
+                if ($stoppable && $event->isPropagationStopped()) {
                     return $event;
                 }
             }
@@ -77,15 +68,9 @@ final class EventDispatcher implements EventDispatcherInterface
      * @return ListenerProviderInterface[]
      */
     public function getProviders(): iterable
-    {
-        $providers = [];
-        
-        foreach($this->providers as $provider)
-        {
-            $providers[] = clone $provider;
-        }
-        
-        return $providers;
+    { 
+        foreach($this->providers as $provider)  $providers[] = clone $provider;
+        return $providers ?? [];
     }
     
     /**
@@ -94,10 +79,8 @@ final class EventDispatcher implements EventDispatcherInterface
      */
     public function hasProvider(ListenerProviderInterface $provider): bool
     {
-        foreach($this->providers as $p)
-        {
-            if ($p === $provider)
-            {
+        foreach($this->providers as $p) {
+            if ($p === $provider) {
                 return true;
             }
         }
