@@ -6,14 +6,14 @@ use Psr\EventDispatcher\StoppableEventInterface;
 
 class Event implements StoppableEventInterface 
 {
-    private bool $stop = false;
+    private bool $propagationStopped = false;
 
     /**
      * @inheritDoc
      */
     public function stopPropagation(): void 
     {
-        $this->stop = true;
+        $this->propagationStopped = true;
     }
     
     /**
@@ -21,6 +21,6 @@ class Event implements StoppableEventInterface
      */
     public function isPropagationStopped(): bool 
     {
-        return $this->stop;
+        return $this->propagationStopped;
     }
 }
