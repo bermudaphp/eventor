@@ -43,7 +43,6 @@ final class EventDispatcher implements EventDispatcherInterface
         foreach($this->providers as $provider) {
             foreach ($provider->getListenersForEvent($event) as $listener) {
                 $listener($event);
-
                 if ($stoppable && $event->isPropagationStopped()) {
                     return $event;
                 }
