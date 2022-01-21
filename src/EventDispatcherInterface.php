@@ -4,10 +4,6 @@ namespace Bermuda\Eventor;
 
 use Psr\EventDispatcher\EventDispatcherInterface as PsrDispatcherInterface;
 
-/**
- * Interface EventDispatcherInterface
- * @package Bermuda\Eventor
- */
 interface EventDispatcherInterface extends PsrDispatcherInterface
 {
     /**
