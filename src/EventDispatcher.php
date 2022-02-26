@@ -8,7 +8,6 @@ use Psr\EventDispatcher\StoppableEventInterface as Stoppable;
 final class EventDispatcher implements EventDispatcherInterface 
 {
     private array $providers = [];
-
     public function __construct(iterable|ListenerProviderInterface $providers) 
     {
         if (!is_iterable($providers)) {
@@ -59,9 +58,9 @@ final class EventDispatcher implements EventDispatcherInterface
     /**
      * @return ListenerProviderInterface[]
      */
-    public function getProviders(): iterable
+    public function getProviders(): array
     { 
-        foreach($this->providers as $provider)  $providers[] = clone $provider;
+        foreach($this->providers as $provider) $providers[] = clone $provider;
         return $providers ?? [];
     }
     
