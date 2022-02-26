@@ -9,34 +9,27 @@ final class EventDispatcher implements EventDispatcherInterface
 {
     private array $providers = [];
 
-    public function __construct(iterable $providers = []) 
+    public function __construct(iterable|ListenerProviderInterface $providers) 
     {
-        foreach($providers as $i => $provider) {
-            if (!$provider instanceof ListenerProviderInterface) {
-                throw new \InvalidArgumentException(
-                    sprintf('$providers[\'. $i .\'] must be instanceof %s', 
-                        ListenerProviderInterface::class
-                    )
-                );
-            }
-            
-            $this->providers[] = $provider;
+        if (!is_iterable($providers)) {
+            $providers = [$providers];
         }
+        
+        foreach($providers as $p) $this->addProvider($p);
     }
     
     public function __clone()
     {
         $this->providers = $this->getProviders();
     }
-
+    
     /**
      * @inheritDoc
      */
     public function dispatch(object $event): object 
     {
         if (($stoppable = $event instanceof Stoppable)
-           && $event->isPropagationStopped())
-        {
+           && $event->isPropagationStopped()) {
             return $event;
         }
         
@@ -95,5 +88,10 @@ final class EventDispatcher implements EventDispatcherInterface
     public function withProviders(iterable $providers): EventDispatcherInterface
     {
         return new self($providers);
+    }
+    
+    private function addProvider(ListenerProviderInterface $provider): void
+    {
+        $this->providers[] = $provider;
     }
 }
