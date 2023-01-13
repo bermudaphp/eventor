@@ -3,7 +3,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Bermuda\\Eventor\\": "src/"
+            "Bermuda\\Eventor\\": "src/",
+            "Bermuda\\Eventor\\Provider\\": "src/provider/"
         }
     },
     "require": {
