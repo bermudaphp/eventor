@@ -31,9 +31,7 @@ final class EventDispatcher implements EventDispatcherInterface
         foreach($this->providers as $provider) {
             foreach ($provider->getListenersForEvent($event) as $listener) {
                 $listener($event);
-                if ($stoppable && $event->isPropagationStopped()) {
-                    return $event;
-                }
+                if ($stoppable && $event->isPropagationStopped()) return $event;
             }
         }
         
@@ -50,7 +48,7 @@ final class EventDispatcher implements EventDispatcherInterface
         
         return $copy;
     }
-    
+
     /**
      * @return ListenerProviderInterface[]
      */
@@ -60,23 +58,18 @@ final class EventDispatcher implements EventDispatcherInterface
         return $providers ?? [];
     }
     
-    /**
-     * @param ListenerProviderInterface $provider
-     * @return bool
-     */
-    public function hasProvider(ListenerProviderInterface $provider): bool
+    public function hasProvider(ListenerProviderInterface|string $provider): bool
     {
-        foreach($this->providers as $p) {
-            if ($p === $provider) {
-                return true;
-            }
+        if ($provider instanceof ListenerProviderInterface) {
+            foreach($this->providers as $p) if ($p === $provider) return true;
+            return false;
         }
-        
-        return false;
+
+        return isset($this->providers[$provider]);
     }
     
     private function addProvider(ListenerProviderInterface $provider): void
     {
-        $this->providers[] = $provider;
+        $this->providers[$provider::class] = $provider;
     }
 }
