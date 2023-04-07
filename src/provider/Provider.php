@@ -7,7 +7,6 @@ use Bermuda\Eventor\ListenerProviderInterface;
 class Provider implements ListenerProviderInterface
 {
     protected array $listeners = [];
-    
     public function __construct(iterable $listeners = [])
     {
         foreach ($listeners as $type => $listener) $this->listen($type, $listener);
@@ -19,18 +18,12 @@ class Provider implements ListenerProviderInterface
     public function getListenersForEvent(object $event): array 
     {
         foreach ($this->listeners as $eventType => $listener) {
-            if ($event instanceof $eventType) {
-                $listeners[] = $listener;
-            }
+            if ($event instanceof $eventType) $listeners[] = $listener;
         }
 
         return $listeners ?? [];
     }
 
-    /**
-     * @param string $eventType
-     * @param callable $listener
-     */
     public function listen(string $eventType, callable $listener): void 
     {
         if (!in_array($listener, $this->listeners[$eventType] ?? [], true)) {
