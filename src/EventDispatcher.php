@@ -75,16 +75,6 @@ final class EventDispatcher implements EventDispatcherInterface
         return false;
     }
     
-    /**
-     * @param ListenerProviderInterface[] $providers
-     * @return EventDispatcherInterface
-     * @throws \InvalidArgumentException
-     */
-    public function withProviders(iterable $providers): EventDispatcherInterface
-    {
-        return new self($providers);
-    }
-    
     private function addProvider(ListenerProviderInterface $provider): void
     {
         $this->providers[] = $provider;
