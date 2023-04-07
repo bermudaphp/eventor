@@ -9,6 +9,8 @@ class RandomizedProvider extends Provider
      */
     public function getListenersForEvent(object $event): array 
     {
-        return shuffle(parent::getListenersForEvent($event));
+        return usort(parent::getListenersForEvent($event), static function() {
+            return random_int(1, 100) <=> random_int(1, 100);
+        });
     }
 }
