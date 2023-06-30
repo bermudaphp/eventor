@@ -40,4 +40,9 @@ class Event implements StoppableEventInterface
     {
         return $this->data[$key] ?? $default;
     }
+
+    public function getData(): array
+    {
+        return this->data;
+    }
 }
