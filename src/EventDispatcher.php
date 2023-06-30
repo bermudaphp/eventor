@@ -10,7 +10,7 @@ final class EventDispatcher implements EventDispatcherInterface
     private array $providers = [];
     public function __construct(iterable|ListenerProviderInterface $providers = []) 
     {
-        foreach(is_iterable($providers) ? $providers : [$providers] as $p) $this->provider[] = $p; 
+        foreach(is_iterable($providers) ? $providers : [$providers] as $p) $this->providers[] = $p; 
     }
     
     public function __clone()
