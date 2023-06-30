@@ -10,7 +10,7 @@ final class EventDispatcher implements EventDispatcherInterface
     private array $providers = [];
     public function __construct(iterable|ListenerProviderInterface $providers = []) 
     {
-        foreach(is_iterable($providers) ? $providers : [$providers] as $p) $this->addProvider($p);
+        foreach(is_iterable($providers) ? $providers : [$providers] as $p) $this->provider[] = $p; 
     }
     
     public function __clone()
@@ -58,18 +58,14 @@ final class EventDispatcher implements EventDispatcherInterface
         return $providers ?? [];
     }
     
-    public function hasProvider(ListenerProviderInterface|string $provider): bool
+    public function hasProvider(ListenerProviderInterface $provider): bool
     {
-        if ($provider instanceof ListenerProviderInterface) {
-            foreach($this->providers as $p) if ($p === $provider) return true;
-            return false;
-        }
-
-        return isset($this->providers[$provider]);
+        foreach($this->providers as $p) if ($p === $provider) return true;
+        return false;
     }
     
     private function addProvider(ListenerProviderInterface $provider): void
     {
-        $this->providers[$provider::class] = $provider;
+        $this->providers[] = $provider;
     }
 }
