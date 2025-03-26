@@ -7,8 +7,11 @@ final class ConfigProvider extends \Bermuda\Config\ConfigProvider
     /**
      * @inheritDoc
      */
-    protected function getInvokables(): array
+    protected function getFactories(): array
     {
-        return [EventDispatcherInterface::class => EventDispatcher::class];
+        return [
+            EventDispatcherInterface::class => EventDispatcherFactory::class,
+            EventDispatcherFactoryInterface::class => [EventDispatcherFactory::class, 'createFromContainer']
+        ];
     }
 }
